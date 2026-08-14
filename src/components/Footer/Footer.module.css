@@ -1,0 +1,35 @@
+.footer {
+  background-color: var(--color-ink);
+  color: var(--color-paper-soft);
+  margin-top: 4rem;
+}
+
+.inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 3rem;
+  text-align: center;
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-gold);
+}
+
+.meta {
+  font-size: 0.9rem;
+  color: var(--color-paper-soft);
+  opacity: 0.75;
+  max-width: 32ch;
+  margin: 0.6rem auto 0;
+}
+
+.copy {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  opacity: 0.55;
+  margin-top: 1.25rem;
+}

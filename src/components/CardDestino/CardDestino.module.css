@@ -1,0 +1,71 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: #fffdf8;
+  border: 1px solid var(--color-line);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(27, 42, 60, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover,
+.card:focus-visible {
+  transform: translateY(-4px) rotate(-0.6deg);
+  box-shadow: 0 14px 24px -12px rgba(27, 42, 60, 0.35);
+}
+
+.imageWrap {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  background-color: var(--color-paper-soft);
+}
+
+.image {
+  object-fit: cover;
+}
+
+.stamp {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: var(--color-stamp);
+  background-color: rgba(255, 253, 248, 0.92);
+  border: 1.5px dashed var(--color-stamp);
+  border-radius: 999px;
+  padding: 0.3rem 0.6rem;
+  transform: rotate(-8deg);
+}
+
+.body {
+  padding: 1.1rem 1.15rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+}
+
+.nome {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.descricao {
+  font-size: 0.9rem;
+  color: var(--color-ink-soft);
+  flex: 1;
+}
+
+.link {
+  margin-top: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--color-jade);
+}
