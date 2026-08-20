@@ -73,6 +73,7 @@ jobs:
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
     steps:
       - name: Checkout do código
@@ -84,18 +85,25 @@ jobs:
           node-version: "24"
           cache: "npm"
 
+      - name: Verificar secrets da Vercel
+        run: |
+          test -n "$VERCEL_TOKEN" || (echo "❌ Secret VERCEL_TOKEN não configurado (Settings → Secrets and variables → Actions)" && exit 1)
+          test -n "$VERCEL_ORG_ID" || (echo "❌ Secret VERCEL_ORG_ID não configurado" && exit 1)
+          test -n "$VERCEL_PROJECT_ID" || (echo "❌ Secret VERCEL_PROJECT_ID não configurado" && exit 1)
+          echo "✅ Secrets presentes"
+
       - name: Instalar Vercel CLI
         run: npm install --global vercel@latest
 
       - name: Baixar configuração do ambiente Vercel
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
 
       - name: Build do projeto via Vercel
-        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel build --prod --token="$VERCEL_TOKEN"
 
       - name: Deploy do artefato pré-buildado na Vercel
         id: deploy
         run: |
-          url=$(vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }})
+          url=$(vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN")
           echo "deployment-url=$url" >> "$GITHUB_OUTPUT"
           echo "🚀 Deploy publicado em: $url"
