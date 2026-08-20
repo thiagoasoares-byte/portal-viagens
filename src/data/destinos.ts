@@ -17,7 +17,7 @@ export const destinos: Destino[] = [
     nome: "Rio de Janeiro",
     pais: "Brasil",
     codigo: "BR-RJ",
-    imagem: "https://i.postimg.cc/63B9RLMD/praia.webp",
+    imagem: "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     descricaoCurta: "Mar, morro e a cidade que nunca se leva a sério demais.",
     descricao:
       "Entre o Corcovado e o Pão de Açúcar, o Rio combina praias urbanas, trilhas na Mata Atlântica e uma vida noturna que começa no fim da tarde, com a roda de samba tomando as ruas de Lapa e Santa Teresa.",
@@ -34,7 +34,7 @@ export const destinos: Destino[] = [
     nome: "Fernando de Noronha",
     pais: "Brasil",
     codigo: "BR-PE",
-    imagem: "https://i.postimg.cc/FKVv9kh7/fernando-de-noronha.jpg",
+    imagem: "https://images.unsplash.com/photo-1614723141070-2eec18977122?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     descricaoCurta: "Arquipélago vulcânico com o mar mais transparente do país.",
     descricao:
       "Um santuário ecológico no meio do Atlântico, com baías protegidas, golfinhos-rotadores nadando ao amanhecer e um número limitado de visitantes por dia para preservar os recifes de corais.",
@@ -51,7 +51,7 @@ export const destinos: Destino[] = [
     nome: "Chapada Diamantina",
     pais: "Brasil",
     codigo: "BR-BA",
-    imagem: "https://i.postimg.cc/7PWkYkr9/chapada-diamantinas.webp",
+    imagem: "https://images.unsplash.com/photo-1587944333503-ef66108afa79?q=80&w=765&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     descricaoCurta: "Cânions, cachoeiras e grutas no coração da Bahia.",
     descricao:
       "Um mosaico de serras antigas esculpidas pelo tempo, onde cachoeiras despencam de paredões de arenito e rios subterrâneos formam poços de água azul-turquesa dentro de grutas de calcário.",
@@ -68,7 +68,7 @@ export const destinos: Destino[] = [
     nome: "Foz do Iguaçu",
     pais: "Brasil",
     codigo: "BR-PR",
-    imagem: "https://i.postimg.cc/zvL4RyYp/foz-do-iguacu.jpg",
+    imagem: "https://images.unsplash.com/photo-1656288227038-28aaa4f6b8ad?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     descricaoCurta: "As Cataratas que dividem a fronteira entre três países.",
     descricao:
       "Um dos maiores conjuntos de quedas d'água do planeta, com passarelas que colocam o visitante a poucos metros da força da água e vistas que se estendem até a Argentina e o Paraguai.",
@@ -85,7 +85,7 @@ export const destinos: Destino[] = [
     nome: "Salvador",
     pais: "Brasil",
     codigo: "BR-BA",
-    imagem: "https://i.postimg.cc/TYDZd59x/salvador.webp",
+    imagem: "https://images.unsplash.com/photo-1621693247912-767f47a3c382?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     descricaoCurta: "Primeira capital do Brasil, berço da cultura afro-brasileira.",
     descricao:
       "As ladeiras coloridas do Pelourinho guardam séculos de história, capoeira nas praças e um axé que sai dos tambores direto para a rua, enquanto o Farol da Barra observa o encontro da baía com o oceano.",
@@ -102,7 +102,7 @@ export const destinos: Destino[] = [
     nome: "Jalapão",
     pais: "Brasil",
     codigo: "BR-TO",
-    imagem: "https://i.postimg.cc/GpcNx712/jalapo.webp",
+    imagem: "https://images.unsplash.com/photo-1662998368456-0817cb60f951?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     descricaoCurta: "Dunas douradas e fervedouros no cerrado profundo.",
     descricao:
       "Um dos últimos grandes redutos preservados do cerrado, onde dunas de areia dourada encontram rios de água cristalina e os fervedouros criam piscinas naturais que empurram o corpo para cima como se fosse ar.",
