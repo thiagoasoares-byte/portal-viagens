@@ -4,6 +4,10 @@ Projeto de estudo em **Next.js (App Router)** que simula um pequeno portal de
 viagens: uma listagem de destinos turísticos e páginas de detalhe geradas por
 rota dinâmica.
 
+🔗 **Deploy:** [rota-aberta.vercel.app](https://rota-aberta.vercel.app) <!-- atualizar com a URL real após o primeiro deploy -->
+
+![CI/CD](https://github.com/thiagoasoares-byte/portal-viagens/actions/workflows/main.yml/badge.svg)
+
 ## Conceitos aplicados
 
 - **Rotas baseadas em arquivos** (App Router): `/`, `/destinos`
@@ -65,6 +69,37 @@ Acesse `http://localhost:3000`.
 npm run build
 npm run start
 ```
+
+## Testes
+
+```bash
+npm run test
+```
+
+Testes escritos com **Vitest** + **Testing Library**, cobrindo a integridade
+dos dados de destinos (`src/data/destinos.test.ts`) e a renderização do
+componente `Header` (`src/components/Header/Header.test.tsx`).
+
+## CI/CD
+
+O projeto usa **GitHub Actions** (`.github/workflows/main.yml`) com dois jobs:
+
+1. **CI** — roda em todo push e pull request para `main`:
+   - `npm ci` (instala dependências)
+   - `npm run lint` (ESLint)
+   - `npm run test` (Vitest)
+   - `npm run build` (build de produção do Next.js)
+2. **CD** — roda apenas após o CI passar em um push direto na `main`:
+   - Publica automaticamente o build na **Vercel** (produção), usando a
+     Vercel CLI de forma não-interativa via os secrets do repositório.
+
+### Secrets necessários (Settings → Secrets and variables → Actions)
+
+| Secret              | Onde encontrar                                                                 |
+| ------------------- | ------------------------------------------------------------------------------- |
+| `VERCEL_TOKEN`      | vercel.com → Settings → Tokens                                                  |
+| `VERCEL_ORG_ID`     | Gerado em `.vercel/project.json` após rodar `vercel link` localmente uma vez    |
+| `VERCEL_PROJECT_ID` | Gerado em `.vercel/project.json` após rodar `vercel link` localmente uma vez    |
 
 ## Observação sobre as imagens
 
