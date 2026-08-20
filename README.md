@@ -4,7 +4,7 @@ Projeto de estudo em **Next.js (App Router)** que simula um pequeno portal de
 viagens: uma listagem de destinos turísticos e páginas de detalhe geradas por
 rota dinâmica.
 
-🔗 **Deploy:** [rota-aberta.vercel.app](https://rota-aberta.vercel.app) <!-- atualizar com a URL real após o primeiro deploy -->
+🔗 **Deploy:** [portal-viagens-indol.vercel.app](https://portal-viagens-indol.vercel.app)
 
 ![CI/CD](https://github.com/thiagoasoares-byte/portal-viagens/actions/workflows/main.yml/badge.svg)
 
@@ -100,14 +100,6 @@ O projeto usa **GitHub Actions** (`.github/workflows/main.yml`) com dois jobs:
 | `VERCEL_TOKEN`      | vercel.com → Settings → Tokens                                                  |
 | `VERCEL_ORG_ID`     | Gerado em `.vercel/project.json` após rodar `vercel link` localmente uma vez    |
 | `VERCEL_PROJECT_ID` | Gerado em `.vercel/project.json` após rodar `vercel link` localmente uma vez    |
-
-## Observação sobre as imagens
-
-As imagens dos destinos usam o serviço `picsum.photos` como placeholder
-(cada destino tem uma *seed* fixa, então a imagem não muda entre builds).
-Para usar fotos reais, basta trocar o campo `imagem` em `src/data/destinos.ts`
-pela URL desejada e, se for um domínio novo, adicioná-lo em
-`remotePatterns` no `next.config.ts`.
 
 ## Autor
 
