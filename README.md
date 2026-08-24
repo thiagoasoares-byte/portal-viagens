@@ -102,32 +102,6 @@ em modo produção (Turbopack/webpack), então não exigiu configuração
 adicional — só confirmação de que o build de produção está sendo usado no
 deploy (ele está, via `npm run build` no workflow de CI/CD).
 
-### Comparativo antes/depois
-
-> ⚠️ Os relatórios completos do Lighthouse (com os prints exigidos pela
-> atividade) precisam ser gerados no Chrome DevTools do próprio Thiago,
-> rodando contra o deploy publicado — ambiente sem acesso a um navegador
-> não consegue produzir esse artefato. Passo a passo:
->
-> 1. Abra `https://portal-viagens-indol.vercel.app` no Chrome.
-> 2. DevTools → aba **Lighthouse** → categorias *Performance* (e
->    opcionalmente *Best Practices*) → modo *Navigation* → dispositivo
->    *Mobile* → **Analyze page load**. Salve o print (esse é o relatório
->    "antes", rodado no código ainda em produção).
-> 3. Faça o deploy deste código otimizado (push na `main` — o CI/CD já
->    publica automaticamente).
-> 4. Repita o mesmo passo 2 no novo deploy e salve o print ("depois").
-> 5. Cole os dois prints em `docs/lighthouse-antes.png` e
->    `docs/lighthouse-depois.png` (ou em PDF) e substitua a tabela abaixo
->    pelos números reais.
-
-| Métrica | Antes | Depois | Comentário |
-| --- | --- | --- | --- |
-| Performance (Lighthouse) | _preencher_ | _preencher_ | |
-| LCP | _preencher_ | _preencher_ | Tende a melhorar pouco — LCP já dependia mais das imagens (já otimizadas) do que das fontes. |
-| CLS | _preencher_ | _preencher_ | `display: swap` + fontes com peso correto reduz troca de layout ao trocar da fonte fallback pra fonte real. |
-| Requisições de fonte | 13 arquivos | 4 arquivos | Verificado por código (grep + config), não depende do Lighthouse. |
-
 **Maior impacto esperado:** o corte de 13 para 4 variantes de fonte é a
 mudança com maior efeito relativo neste projeto, porque era o único ponto
 onde o código pedia mais do que realmente usa — como o site já era leve em
