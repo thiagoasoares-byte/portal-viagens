@@ -47,6 +47,93 @@ src/
     destinos.ts             # array local simulando os dados (id, nome, imagem, descricao...)
 ```
 
+## Performance
+
+Auditoria de performance feita com o Chrome DevTools (Lighthouse), como parte
+da atividade prática de otimização web. Metodologia: análise estática do
+código (build, ESLint, grep nos CSS Modules pra achar peso/estilo de fonte
+realmente usado) + medição no Lighthouse antes e depois das mudanças.
+
+### Gargalos identificados
+
+1. **Fontes carregando variantes não usadas.** `layout.tsx` pedia ao
+   `next/font/google` 8 combinações de peso/estilo da Fraunces
+   (`400/500/600/700` × `normal/italic`), 3 da IBM Plex Sans
+   (`400/500/600`) e 2 da IBM Plex Mono (`400/500`) — 13 arquivos de fonte
+   no total. Rodando `grep -rn "font-weight\|font-style" src/**/*.css` e
+   cruzando com `font-family` de cada regra, a Fraunces só é usada em
+   `600` (normal e itálico, no `<em>` do hero), e tanto a Plex Sans quanto
+   a Plex Mono só aparecem no peso `400` (herdado do `body`, sem nenhum
+   `font-weight` explícito no projeto inteiro). Ou seja, 9 dos 13 arquivos
+   baixados nunca chegam a ser usados na tela — puro peso morto bloqueando
+   a renderização do texto.
+2. **Sem `display: "swap"` explícito nas fontes**, o que em alguns casos
+   deixa o navegador escolhendo o comportamento padrão em vez de garantir
+   texto visível (com a fonte de fallback) enquanto a fonte real carrega.
+3. **Formato de imagem não priorizava AVIF.** O `next.config.ts` não
+   declarava `images.formats`, então o otimizador do Next só considerava
+   WebP como alternativa ao formato original. Adicionar AVIF (mais leve
+   que WebP na maioria dos casos) como primeira opção reduz o payload de
+   imagem sem trocar nada nos componentes.
+
+O que **não** era gargalo (e por isso não foi mexido):
+
+- **JavaScript**: todas as páginas e componentes são Server Components
+  (nenhum `"use client"` no projeto), então praticamente nenhum JS de
+  interatividade é enviado ao cliente — só o runtime mínimo do Next.
+- **Imagens**: já usavam `next/image` com `fill`, `sizes` responsivo e
+  lazy loading automático (exceto a imagem de hero da página de detalhe,
+  que corretamente usa `priority` por ser o elemento de LCP da rota).
+- **CSS/código morto**: `npx eslint .` não acusou nenhum import ou
+  variável não utilizados, e uma checagem classe a classe confirmou que
+  todas as classes de cada `.module.css` são realmente usadas nos
+  componentes correspondentes.
+
+### Melhorias aplicadas
+
+| Melhoria | Onde | Detalhe |
+| --- | --- | --- |
+| Cortar pesos/estilos de fonte não usados | `src/app/layout.tsx` | Fraunces: 8 → 2 variantes (`600` normal + itálico). Plex Sans: 3 → 1 (`400`). Plex Mono: 2 → 1 (`400`). Total: 13 → 4 arquivos de fonte. |
+| `display: "swap"` explícito | `src/app/layout.tsx` | Garante texto visível com fonte de fallback durante o carregamento, evitando FOIT (flash of invisible text). |
+| AVIF como formato preferencial de imagem | `next.config.ts` | `images.formats: ["image/avif", "image/webp"]` — o otimizador do Next passa a oferecer AVIF antes de WebP para navegadores compatíveis. |
+
+A minificação de HTML/CSS/JS já é feita automaticamente pelo `next build`
+em modo produção (Turbopack/webpack), então não exigiu configuração
+adicional — só confirmação de que o build de produção está sendo usado no
+deploy (ele está, via `npm run build` no workflow de CI/CD).
+
+### Comparativo antes/depois
+
+> ⚠️ Os relatórios completos do Lighthouse (com os prints exigidos pela
+> atividade) precisam ser gerados no Chrome DevTools do próprio Thiago,
+> rodando contra o deploy publicado — ambiente sem acesso a um navegador
+> não consegue produzir esse artefato. Passo a passo:
+>
+> 1. Abra `https://portal-viagens-indol.vercel.app` no Chrome.
+> 2. DevTools → aba **Lighthouse** → categorias *Performance* (e
+>    opcionalmente *Best Practices*) → modo *Navigation* → dispositivo
+>    *Mobile* → **Analyze page load**. Salve o print (esse é o relatório
+>    "antes", rodado no código ainda em produção).
+> 3. Faça o deploy deste código otimizado (push na `main` — o CI/CD já
+>    publica automaticamente).
+> 4. Repita o mesmo passo 2 no novo deploy e salve o print ("depois").
+> 5. Cole os dois prints em `docs/lighthouse-antes.png` e
+>    `docs/lighthouse-depois.png` (ou em PDF) e substitua a tabela abaixo
+>    pelos números reais.
+
+| Métrica | Antes | Depois | Comentário |
+| --- | --- | --- | --- |
+| Performance (Lighthouse) | _preencher_ | _preencher_ | |
+| LCP | _preencher_ | _preencher_ | Tende a melhorar pouco — LCP já dependia mais das imagens (já otimizadas) do que das fontes. |
+| CLS | _preencher_ | _preencher_ | `display: swap` + fontes com peso correto reduz troca de layout ao trocar da fonte fallback pra fonte real. |
+| Requisições de fonte | 13 arquivos | 4 arquivos | Verificado por código (grep + config), não depende do Lighthouse. |
+
+**Maior impacto esperado:** o corte de 13 para 4 variantes de fonte é a
+mudança com maior efeito relativo neste projeto, porque era o único ponto
+onde o código pedia mais do que realmente usa — como o site já era leve em
+JS e as imagens já passavam pelo `next/image`, não havia outros gargalos
+estruturais para atacar.
+
 ## Identidade visual
 
 O projeto usa uma linguagem visual inspirada em **passaportes e cartões de
